@@ -42,28 +42,24 @@ public class SystemPermission {
         return isUnixPermissionGranted;
     }
 
-    public void setIsGranted(boolean isGranted) {
-        this.isGranted = isGranted;
-    }
-
     public SystemAdmin getAdmin() {
         return admin;
-    }
-
-    public void setIsUnixPermissionGranted(boolean isUnixPermissionGranted) {
-        this.isUnixPermissionGranted = isUnixPermissionGranted;
     }
 
     public SystemProfile getProfile() {
         return profile;
     }
 
-    void setState(PermissionState permissionState) {
-        this.permissionState = permissionState;
+    public void setIsGranted(boolean isGranted) {
+        this.isGranted = isGranted;
     }
 
-    private void notifyAdminOfPermissionRequest() {
-        //...
+    public void setIsUnixPermissionGranted(boolean isUnixPermissionGranted) {
+        this.isUnixPermissionGranted = isUnixPermissionGranted;
+    }
+
+    void setState(PermissionState permissionState) {
+        this.permissionState = permissionState;
     }
 
     void willBeHandedBy(SystemAdmin admin) {
@@ -76,5 +72,9 @@ public class SystemPermission {
 
     void notifyUserOfPermissionRequestResult() {
         user.notifyRequestResult(getState());
+    }
+
+    private void notifyAdminOfPermissionRequest() {
+        //...
     }
 }

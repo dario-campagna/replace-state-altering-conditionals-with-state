@@ -19,47 +19,9 @@ public abstract class PermissionState {
         return name;
     }
 
-    public void claimedBy(SystemAdmin admin, SystemPermission permission) {
-        if (!permission.getState().equals(PermissionState.REQUESTED) && !permission.getState().equals(PermissionState.UNIX_REQUESTED)) {
-            return;
-        }
-        permission.willBeHandedBy(admin);
-        if (permission.getState().equals(PermissionState.REQUESTED)) {
-            permission.setState(PermissionState.CLAIMED);
-        } else if (permission.getState().equals(PermissionState.UNIX_REQUESTED)) {
-            permission.setState(PermissionState.UNIX_CLAIMED);
-        }
-    }
+    public void claimedBy(SystemAdmin admin, SystemPermission permission) {}
 
-    public void deniedBy(SystemAdmin admin, SystemPermission permission) {
-        if (!permission.getState().equals(PermissionState.CLAIMED) && !permission.getState().equals(PermissionState.UNIX_CLAIMED)) {
-            return;
-        }
-        if (!permission.getAdmin().equals(admin)) {
-            return;
-        }
-        permission.setIsGranted(false);
-        permission.setIsUnixPermissionGranted(false);
-        permission.setState(PermissionState.DENIED);
-        permission.notifyUserOfPermissionRequestResult();
-    }
+    public void deniedBy(SystemAdmin admin, SystemPermission permission) {}
 
-    public void grantedBy(SystemAdmin admin, SystemPermission permission) {
-        if (!permission.getState().equals(PermissionState.CLAIMED) && !permission.getState().equals(PermissionState.UNIX_CLAIMED)) {
-            return;
-        }
-        if (!permission.getAdmin().equals(admin)) {
-            return;
-        }
-        if (permission.getProfile().isUnixPermissionRequired() && permission.getState().equals(PermissionState.UNIX_CLAIMED)) {
-            permission.setIsUnixPermissionGranted(true);
-        } else if (permission.getProfile().isUnixPermissionRequired() && !permission.isUnixPermissionGranted()) {
-            permission.setState(PermissionState.UNIX_REQUESTED);
-            permission.notifyUnixAdminOfPermissionRequest();
-            return;
-        }
-        permission.setState(PermissionState.GRANTED);
-        permission.setIsGranted(true);
-        permission.notifyUserOfPermissionRequestResult();
-    }
+    public void grantedBy(SystemAdmin admin, SystemPermission permission) {}
 }

@@ -5,6 +5,7 @@ public class UnixPermissionClaimed extends PermissionState {
         super("UNIX_CLAIMED");
     }
 
+    @Override
     public void deniedBy(SystemAdmin admin, SystemPermission permission) {
         if (!permission.getAdmin().equals(admin)) {
             return;
@@ -15,6 +16,7 @@ public class UnixPermissionClaimed extends PermissionState {
         permission.notifyUserOfPermissionRequestResult();
     }
 
+    @Override
     public void grantedBy(SystemAdmin admin, SystemPermission permission) {
         if (!permission.getAdmin().equals(admin)) {
             return;
