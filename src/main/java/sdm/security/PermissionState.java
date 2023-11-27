@@ -1,16 +1,16 @@
 package sdm.security;
 
-public class PermissionState {
+public abstract class PermissionState {
 
     private final String name;
-    public static final PermissionState REQUESTED = new PermissionState("REQUESTED");
-    public static final PermissionState UNIX_REQUESTED = new PermissionState("UNIX_REQUESTED");
-    public static final PermissionState CLAIMED = new PermissionState("CLAIMED");
-    public static final PermissionState UNIX_CLAIMED = new PermissionState("UNIX_CLAIMED");
-    public static final PermissionState GRANTED = new PermissionState("GRANTED");
-    public static final PermissionState DENIED = new PermissionState("DENIED");
+    public static final PermissionState REQUESTED = new PermissionRequested();
+    public static final PermissionState UNIX_REQUESTED = new UnixPermissionRequested();
+    public static final PermissionState CLAIMED = new PermissionClaimed();
+    public static final PermissionState UNIX_CLAIMED = new UnixPermissionClaimed();
+    public static final PermissionState GRANTED = new PermissionGranted();
+    public static final PermissionState DENIED = new PermissionDenied();
 
-    private PermissionState(String name) {
+    protected PermissionState(String name) {
         this.name = name;
     }
 
